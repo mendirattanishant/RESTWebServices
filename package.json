@@ -1,0 +1,28 @@
+{
+  "name": "eskimo",
+  "version": "1.0.0",
+  "description": "Final Project",
+  "author": "Team-Fodu",
+  "license": "ISC",
+  "keywords": [
+    "OpenShift",
+    "Node.js",
+    "application",
+    "openshift"
+  ],
+  "homepage": "http://www.openshift.com/",
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.5.3",
+    "ejs": "^2.3.1",
+    "express": "3.2.6",
+    "moment": "^2.10.6",
+    "mysql": "^2.6.2",
+    "request": "^2.55.0"
+  },
+  "private": true,
+  "main": "server.js"
+}
