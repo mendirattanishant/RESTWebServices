@@ -23,3 +23,5 @@ $ npm install
 ```sh
 $ node server.js
 ```
+
+>Use RESTClient like https://chrome.google.com/webstore/detail/postman-rest-client-short/mkhojklkhkdaghjjfdnphfphiaiohkef?hl=en to call APIs
