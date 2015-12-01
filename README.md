@@ -1,4 +1,3 @@
-# RESTWebServices
 
 Web Services created in Node.js using MySQL as the database. 
 
@@ -25,3 +24,6 @@ $ node server.js
 ```
 
 >Use RESTClient like https://chrome.google.com/webstore/detail/postman-rest-client-short/mkhojklkhkdaghjjfdnphfphiaiohkef?hl=en to call APIs
+The OpenShift `nodejs` cartridge documentation can be found at:
+
+http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs

@@ -8,7 +8,7 @@ var express = require('express')
   , db = require('./routes/db')
   ,UserAPIs = require('./routes/UserAPIs'),
   SkiAPIs = require('./routes/SkiAPIs');
-  
+  var fs      = require('fs');
 
 /**
  *  Define the sample application.
@@ -38,6 +38,20 @@ var SampleApp = function() {
             self.ipaddress = "127.0.0.1";
         };
     };
+
+
+    /**
+     *  Populate the cache.
+     */
+    self.populateCache = function() {
+        if (typeof self.zcache === "undefined") {
+            self.zcache = { 'index.html': '' };
+        }
+
+        //  Local cache for static content.
+        self.zcache['index.html'] = fs.readFileSync('./index.html');
+    };
+
 
     /**
      *  Retrieve entry (content) from cache.
@@ -81,6 +95,23 @@ var SampleApp = function() {
     /*  App server functions (main app logic here).                       */
     /*  ================================================================  */
 
+    /**
+     *  Create the routing table entries + handlers for the application.
+     */
+    self.createRoutes = function() {
+        self.routes = { };
+
+        self.routes['/asciimo'] = function(req, res) {
+            var link = "http://i.imgur.com/kmbjB.png";
+            res.send("<html><body><img src='" + link + "'></body></html>");
+        };
+
+        self.routes['/'] = function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(self.cache_get('index.html') );
+        };
+    };
+
 
     /**
      *  Initialize the server (express) and create the routes and register
@@ -116,13 +147,21 @@ var SampleApp = function() {
          self.app.post('/getAttendingEvents', UserAPIs.getAttendingEvents); 
         
     };
+    
+    //  self.createRoutes();
+    //     self.app = express.createServer();
 
+    //     //  Add handlers for the app (from the routes).
+    //     for (var r in self.routes) {
+    //         self.app.get(r, self.routes[r]);
+    //     }
 
     /**
      *  Initializes the sample application.
      */
     self.initialize = function() {
         self.setupVariables();
+        self.populateCache();
         self.setupTerminationHandlers();
 
         // Create the express server and routes.
