@@ -1,7 +1,4 @@
 //#!/bin/env node
-var bapp = new SampleApp();
-bapp.initialize();
-bapp.start();
 
 var express = require('express')
   , http = require('http')
@@ -11,14 +8,12 @@ var express = require('express')
   , db = require('./routes/db')
   ,UserAPIs = require('./routes/UserAPIs'),
   SkiAPIs = require('./routes/SkiAPIs');
-
-var fs      = require('fs');
+  var fs      = require('fs');
 
 /**
  *  Define the sample application.
  */
 var SampleApp = function() {
-    console.log("In Sample App");
 
     //  Scope.
     var self = this;
@@ -103,19 +98,6 @@ var SampleApp = function() {
     /**
      *  Create the routing table entries + handlers for the application.
      */
-    self.createRoutes = function() {
-        self.routes = { };
-
-        self.routes['/asciimo'] = function(req, res) {
-            var link = "http://i.imgur.com/kmbjB.png";
-            res.send("<html><body><img src='" + link + "'></body></html>");
-        };
-
-        self.routes['/'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
-        };
-    };
 
 
     /**
@@ -123,14 +105,10 @@ var SampleApp = function() {
      *  the handlers.
      */
     self.initializeServer = function() {
-        
-        self.app = express();
-        
-        self.createRoutes();
+       
+        //self.app = express.createServer();
         //  Add handlers for the app (from the routes).
-        for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
-        }
+        self.app = express();
 
         // all environments
         self.app.set('views', __dirname + '/public');
@@ -195,4 +173,6 @@ var SampleApp = function() {
 /**
  *  main():  Main code.
  */
-
+var zapp = new SampleApp();
+zapp.initialize();
+zapp.start();
