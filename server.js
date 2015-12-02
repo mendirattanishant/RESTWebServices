@@ -149,18 +149,19 @@ var SampleApp = function() {
         
     };
     
-    //  self.createRoutes();
-         //self.app = express.createServer();
-
-    //     //  Add handlers for the app (from the routes).
-    //     for (var r in self.routes) {
-    //         self.app.get(r, self.routes[r]);
-    //     }
+     self.createRoutes();
+         self.app = express.createServer();
+        self.app = express.createServer();
+        //  Add handlers for the app (from the routes).
+        for (var r in self.routes) {
+            self.app.get(r, self.routes[r]);
+        }
 
     /**
      *  Initializes the sample application.
      */
     self.initialize = function() {
+        console.log ("Check initialize working")
         self.setupVariables();
         self.populateCache();
         self.setupTerminationHandlers();
