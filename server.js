@@ -145,11 +145,12 @@ var SampleApp = function() {
          self.app.post('/getSkiRecords', SkiAPIs.getSkiRecords);
          self.app.delete('/deleteSkiRecord', SkiAPIs.deleteSkiRecord);
          self.app.post('/getAttendingEvents', UserAPIs.getAttendingEvents); 
+         self.app = express.createServer();
         
     };
     
     //  self.createRoutes();
-    //     self.app = express.createServer();
+         //self.app = express.createServer();
 
     //     //  Add handlers for the app (from the routes).
     //     for (var r in self.routes) {
