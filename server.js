@@ -6,8 +6,9 @@ var express = require('express')
   , request = require('request')
   , cors = require('cors')
   , db = require('./routes/db')
-  ,UserAPIs = require('./routes/UserAPIs'),
-  SkiAPIs = require('./routes/SkiAPIs');
+  ,UserAPIs = require('./routes/UserAPIs')
+  ,SkiAPIs = require('./routes/SkiAPIs')
+  ,eventAPIs = require("./routes/eventsAPIs");
   var fs      = require('fs');
 
 /**
@@ -126,6 +127,7 @@ var SampleApp = function() {
         }
 
          //self.app.get('/getTasks', KanbanAPIs.getTasks);
+         self.app.post('/createEvent', eventAPIs.create_event)
          self.app.post('/createUser', UserAPIs.createUser);
          self.app.get('/getUsers', UserAPIs.getUsers);
          self.app.post('/login', UserAPIs.login);
