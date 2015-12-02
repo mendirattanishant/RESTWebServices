@@ -137,7 +137,7 @@ db.dmlQry('select * from events, event_attendees where event_attendees.user_id =
   else {
       if (result.length!=0) {
         res.writeHead(200, {'Content-Type': "application/json"});
-        res.end(JSON.stringify({result}));
+        //res.end(JSON.stringify({result}));
       }
       else {
         res.writeHead(403, {'Content-Type': "application/json"});
