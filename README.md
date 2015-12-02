@@ -27,3 +27,18 @@ $ node server.js
 The OpenShift `nodejs` cartridge documentation can be found at:
 
 http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+>Our Server is running on eskimo-cmpe277.rhcloud.com/
+
+- To make a rest call to create an event call this API "/createEvent"
+- This is a sample request that you can make 
+- {
+  "event_name": "Ski @ 1st Street",
+  "user_id": "1",
+  "location": "San Jose",
+  "start_time": "2015-12-10 00:00:00",
+  "end_time": "2015-12-11 00:00:00"
+  }
+- This a sample response you get 
+- {
+    "event_id": "Ski @ 1st Street1449023165"
+  }
