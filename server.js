@@ -29,7 +29,7 @@ var SampleApp = function() {
     self.setupVariables = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP || process.env.IP;
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000 || 8080;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
@@ -145,7 +145,7 @@ var SampleApp = function() {
          self.app.post('/getSkiRecords', SkiAPIs.getSkiRecords);
          self.app.delete('/deleteSkiRecord', SkiAPIs.deleteSkiRecord);
          self.app.post('/getAttendingEvents', UserAPIs.getAttendingEvents); 
-         self.app = express.createServer();
+         //self.app = express.createServer();
         
     };
     
