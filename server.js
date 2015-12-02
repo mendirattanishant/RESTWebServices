@@ -118,6 +118,12 @@ var SampleApp = function() {
      *  the handlers.
      */
     self.initializeServer = function() {
+        self.createRoutes();
+        self.app = express.createServer();
+        //  Add handlers for the app (from the routes).
+        for (var r in self.routes) {
+            self.app.get(r, self.routes[r]);
+        }
         self.app = express();
 
         // all environments
@@ -149,13 +155,7 @@ var SampleApp = function() {
         
     };
     
-     self.createRoutes();
-         self.app = express.createServer();
-        self.app = express.createServer();
-        //  Add handlers for the app (from the routes).
-        for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
-        }
+     
 
     /**
      *  Initializes the sample application.
