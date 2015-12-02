@@ -9,7 +9,6 @@ var express = require('express')
   ,UserAPIs = require('./routes/UserAPIs')
   ,SkiAPIs = require('./routes/SkiAPIs')
   ,eventAPIs = require("./routes/eventsAPIs");
-  var fs      = require('fs');
   
 
 /**
@@ -117,63 +116,9 @@ var SampleApp = function() {
          self.app.post('/getSkiRecords', SkiAPIs.getSkiRecords);
          self.app.delete('/deleteSkiRecord', SkiAPIs.deleteSkiRecord);
          self.app.post('/getAttendingEvents', UserAPIs.getAttendingEvents); 
-         self.app.post('/adduser',  function(req,res){
-             
-          var user = req.body;  
-          var tenant_id = req.body.tenant_id;
-          var email_id = req.body.email_id;
-          var password = req.body.password;
-          console.log(user);
-          db.dmlQry('insert into Users set ?',user, function(error,result){
-            if(error){
-                console.log("Error" + error);
-                res.writeHead(500, {'Content-Type': "application/json"});
-                res.end(JSON.stringify({response:error}));
-            }
-            else{
-                var replyJson = {email_id : email_id,
-           	    				tenant_id : tenant_id,
-           	    				password : password};
-                
-           	    res.writeHead(200, {'Content-Type': "application/json"});
-                res.end(JSON.stringify(replyJson));
-            }          
-          });
-        });
+       
          
-         self.app.post('/getuser',  function(req,res){
-             var email_id = req.body.email_id;
-             db.dmlQry('select * from Users where email_id = ?',email_id, function(error,result){
-        	    if(error){
-        	        console.log("Error" + error);
-        	        res.writeHead(500, {'Content-Type': "application/json"});
-        	        res.end(JSON.stringify({response:error}));
-        	    }
-               else{
-                   if(result.length != 0){
-                	   	var user_id=result[0].user_id;
-               	    	var tenant_id = result[0].tenant_id;
-               	    	var password = result[0].password;
-               	    	if(req.body.password == password){
-               	    		//send success message
-               	    		var replyJson = {
-               	    				user_id : user_id,
-               	    				email_id : email_id,
-               	    				tenant_id : tenant_id,
-               	    				password : password
-               	    		};
-               	    		res.writeHead(200, {'Content-Type': "application/json"});
-                            res.end(JSON.stringify(replyJson));
-               	    	}
-           	    	}
-           	    	else{
-           	    		//send error
-           	    		res.writeHead(403, {'Content-Type': "application/json"});
-                        res.end(JSON.stringify({response:'Invalid User'}));
-           	    	}  
-               }          
-             });
-           });
+        
         
     };
 
