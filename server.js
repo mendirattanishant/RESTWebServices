@@ -116,6 +116,7 @@ var eskimoAPP = function() {
         self.app.post('/getSkiRecords', SkiAPIs.getSkiRecords);
         self.app.delete('/deleteSkiRecord', SkiAPIs.deleteSkiRecord);
         self.app.get('/getAttendingEvents/:user_id', UserAPIs.getAttendingEvents); 
+        self.app.delete('/deleteEventRecord', eventAPIs.deleteEventRecord);
        };
 
 
