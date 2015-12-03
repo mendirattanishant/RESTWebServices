@@ -48,7 +48,7 @@ this.create_event = function(req, res, next) {
 this.getEventRecords = function(req, res, next) {
     console.log("#########################In Get Events#######################")
   //var event_id = req.params.event_id;
-  db.dmlQry('select * from events where event_id = ?', req.params.event_id, function(error,result) {
+  db.dmlQry('select e.*, ea.user_id from events e join event_attendees ea on e.event_id = ea.event_id where e.event_id = ?', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
       res.writeHead(500, {'Content-Type': "application/json"});
