@@ -25,7 +25,7 @@ this.create_event = function(req, res, next) {
         res.end(JSON.stringify({response:error}));
     }
   });
-  }
+
    event_details_attendees = 
     {
     "event_id":event_id,
