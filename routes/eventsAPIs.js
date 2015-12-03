@@ -98,3 +98,45 @@ this.getEventRecords = function(req, res, next) {
             
   });
 };
+
+
+
+
+this.deleteEventRecord = function(req, res, next) {
+var event_id = req.body.event_id ; 
+//var user_id = req.body.user_id ; 
+
+//var del_new = [event_id,user_id];
+
+//console.log(user_id);
+db.dmlQry('delete from events where event_id = ?', event_id, function(error,result){
+  if(error){
+      console.log("Error" + error);
+      res.writeHead(500, {'Content-Type': "application/json"});
+      res.end(JSON.stringify({response:error}));
+  }
+  else {
+    
+      
+      res.writeHead(200, {'Content-Type': "application/json"});
+      res.end(JSON.stringify({delete: "success"}));
+    }
+                   
+});
+
+
+db.dmlQry('delete from event_attendees where event_id = ?', event_id, function(error,result){
+  if(error){
+      console.log("Error" + error);
+      res.writeHead(500, {'Content-Type': "application/json"});
+      res.end(JSON.stringify({response:error}));
+  }
+  else {
+    
+      
+      res.writeHead(200, {'Content-Type': "application/json"});
+      res.end(JSON.stringify({delete: "success"}));
+    }
+                   
+});
+}; 
