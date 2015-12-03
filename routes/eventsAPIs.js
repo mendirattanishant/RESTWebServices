@@ -84,7 +84,8 @@ this.getEventRecords = function(req, res, next) {
        
        if(result.length != 0) {
          
-         resultJSON["users"] = result;
+         resultJSON.push(result);
+         console.log("printing the complete json");
          console.log(resultJSON);
          res.end(JSON.stringify(resultJSON));
        }     
