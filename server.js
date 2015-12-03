@@ -105,16 +105,17 @@ var eskimoAPP = function() {
           self.app.use(express.errorHandler());
         }
 
-         self.app.post('/createEvent', eventAPIs.create_event)
-         self.app.post('/createUser', UserAPIs.createUser);
-         self.app.get('/getUsers', UserAPIs.getUsers);
-         self.app.post('/login', UserAPIs.login);
-         self.app.post('/attendEvent', UserAPIs.attendEvent);
-         self.app.delete('/deleteEvent', UserAPIs.deleteEvent);
-         self.app.post('/createSkiRecord', SkiAPIs.createSkiRecord);
-         self.app.post('/getSkiRecords', SkiAPIs.getSkiRecords);
-         self.app.delete('/deleteSkiRecord', SkiAPIs.deleteSkiRecord);
-         self.app.post('/getAttendingEvents', UserAPIs.getAttendingEvents); 
+        self.app.post('/createEvent', eventAPIs.create_event)
+        self.app.get('/getEventDetail/:event_id',eventAPIs.getEventRecords)
+        self.app.post('/createUser', UserAPIs.createUser);
+        self.app.get('/getUsers', UserAPIs.getUsers);
+        self.app.post('/login', UserAPIs.login);
+        self.app.post('/attendEvent', UserAPIs.attendEvent);
+        self.app.delete('/deleteEvent', UserAPIs.deleteEvent);
+        self.app.post('/createSkiRecord', SkiAPIs.createSkiRecord);
+        self.app.post('/getSkiRecords', SkiAPIs.getSkiRecords);
+        self.app.delete('/deleteSkiRecord', SkiAPIs.deleteSkiRecord);
+        self.app.post('/getAttendingEvents', UserAPIs.getAttendingEvents); 
        };
 
 
