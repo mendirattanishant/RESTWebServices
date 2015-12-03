@@ -48,7 +48,7 @@ this.create_event = function(req, res, next) {
 this.getEventRecords = function(req, res, next) {
     console.log("#########################In Get Events#######################")
   //var event_id = req.params.event_id;
-  var resultJSON = [];
+  var resultJSON = {};
   db.dmlQry('select * from events where event_id = ? ', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
@@ -59,7 +59,7 @@ this.getEventRecords = function(req, res, next) {
        
        if(result.length != 0)
          //res.end(JSON.stringify(result));
-         resultJSON.push(result);
+         resultJSON = result[0];
          
       else {
         //send error
@@ -72,8 +72,6 @@ this.getEventRecords = function(req, res, next) {
   });
   
   
-  
-  
   db.dmlQry('select u.* from events e join event_attendees ea on e.event_id = ea.event_id join users u on ea.user_id = u.user_id where e.event_id = ? ', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
@@ -84,7 +82,7 @@ this.getEventRecords = function(req, res, next) {
        
        if(result.length != 0) {
          
-         resultJSON.push(result);
+         resultJSON.users = result;
          console.log("printing the complete json");
          console.log(resultJSON);
          res.end(JSON.stringify(resultJSON));
