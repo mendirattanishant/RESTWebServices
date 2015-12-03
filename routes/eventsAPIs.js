@@ -24,18 +24,23 @@ this.create_event = function(req, res, next) {
         res.writeHead(500, {'Content-Type': "application/json"});
         res.end(JSON.stringify({response:error}));
     }
+  });
+  }
+   event_details_attendees = 
+    {
+    "event_id":event_id,
+    "user_id":user_id }
+  db.dmlQry('insert into event_attendees set ?',event_details_attendees, function(error,result){
+    if(error){
+        console.log("Error" + error);
+        res.writeHead(500, {'Content-Type': "application/json"});
+        res.end(JSON.stringify({response:error}));
+    }
     else{
         var response = event_id;
         
    	    res.writeHead(200, {'Content-Type': "application/json"});
         res.end(JSON.stringify({event_id: event_id}));
-    }          
-  });
-  db.dmlQry('insert into event_attendees set ?',[event_id,user_id], function(error,result){
-    if(error){
-        console.log("Error" + error);
-        res.writeHead(500, {'Content-Type': "application/json"});
-        res.end(JSON.stringify({response:error}));
     }
   });
 };
