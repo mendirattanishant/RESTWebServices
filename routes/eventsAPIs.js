@@ -36,8 +36,9 @@ this.create_event = function(req, res, next) {
 };
 
 this.getEventRecords = function(req, res, next) {
+    console.log("#########################In Get Events#######################")
   //var event_id = req.params.event_id;
-  db.dmlQry('select * from events where user_id = ?', req.params.event_id, function(error,result) {
+  db.dmlQry('select * from events where event_id = ?', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
       res.writeHead(500, {'Content-Type': "application/json"});
@@ -46,10 +47,8 @@ this.getEventRecords = function(req, res, next) {
    else{
        
        if(result.length != 0)
-         
-        res.end(JSON.stringify(result));  
-      
-      else{
+         res.end(JSON.stringify(result));
+      else {
         //send error
         res.writeHead(403, {'Content-Type': "application/json"});
             res.end(JSON.stringify({response:'Invalid User'}));
