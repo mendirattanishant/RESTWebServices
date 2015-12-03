@@ -35,7 +35,7 @@ this.createUser = function(req, res, next) {
 };
 
 this.getUsers = function(req, res, next) {
-     db.dmlQry('select email_id from users', function(error,result){
+     db.dmlQry('select * from users', function(error,result){
       if(error){
           console.log("Error" + error);
           res.writeHead(500, {'Content-Type': "application/json"});
@@ -43,11 +43,11 @@ this.getUsers = function(req, res, next) {
       }
        else{
            if(result.length != 0){
-              var resArray = [];
-              for(var i=0; i<result.length;i++){
-                resArray.push(result[i].email_id);
-              }
-            res.end(JSON.stringify(resArray));  
+              // var resArray = [];
+              // for(var i=0; i<result.length;i++){
+              //   resArray.push(result[i].email_id);
+              // }
+            res.end(JSON.stringify(result));  
           }
           else{
             //send error
@@ -60,7 +60,7 @@ this.getUsers = function(req, res, next) {
 
 this.login = function(req, res, next) {
 var email_id = req.body.email_id;
-     db.dmlQry('select user_id from users where email_id = ?',email_id, function(error,result){
+     db.dmlQry('select * from users where email_id = ?',email_id, function(error,result){
       if(error){
           console.log("Error" + error);
           res.writeHead(500, {'Content-Type': "application/json"});
