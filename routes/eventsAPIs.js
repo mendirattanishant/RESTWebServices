@@ -6,12 +6,10 @@ this.create_event = function(req, res, next) {
   console.log("In create Event");
   var event_details = req.body;  
   var user_id = req.body.user_id;
-  var event_details = req.body;  
-  var user_id = req.body.user_id;
   //var event_id = req.body.event_id;
   var event_name = req.body.event_name;
   var location = req.body.location;
-  var date = req.body.location;
+  var date = req.body.date;
   var start_time = req.body.start_time;
   var end_time = req.body.end_time;  
   var event_id = event_name +  moment().unix();
@@ -33,7 +31,7 @@ this.create_event = function(req, res, next) {
         res.end(JSON.stringify({event_id: event_id}));
     }          
   });
-  db.dmlQry('insert into event_attendees set ?',event_details, function(error,result){
+  db.dmlQry('insert into event_attendees set ?',[event_id,user_id], function(error,result){
     if(error){
         console.log("Error" + error);
         res.writeHead(500, {'Content-Type': "application/json"});
@@ -45,7 +43,7 @@ this.create_event = function(req, res, next) {
 this.getEventRecords = function(req, res, next) {
     console.log("#########################In Get Events#######################")
   //var event_id = req.params.event_id;
-  db.dmlQry('select * from events where event_id = ? join event_attendees', req.params.event_id, function(error,result) {
+  db.dmlQry('select * from events where event_id = ?', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
       res.writeHead(500, {'Content-Type': "application/json"});
