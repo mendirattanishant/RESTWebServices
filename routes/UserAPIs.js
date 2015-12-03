@@ -60,7 +60,8 @@ this.getUsers = function(req, res, next) {
 
 this.login = function(req, res, next) {
 var email_id = req.body.email_id;
-     db.dmlQry('select * from users where email_id = ?',email_id, function(error,result){
+var pwd = req.body.password;
+     db.dmlQry('select * from users where email_id = ? and password = ?',[email_id,pwd], function(error,result){
       if(error){
           console.log("Error" + error);
           res.writeHead(500, {'Content-Type': "application/json"});
