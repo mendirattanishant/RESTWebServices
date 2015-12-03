@@ -48,7 +48,8 @@ this.create_event = function(req, res, next) {
 this.getEventRecords = function(req, res, next) {
     console.log("#########################In Get Events#######################")
   //var event_id = req.params.event_id;
-  db.dmlQry('select e.*,u.* from events e join event_attendees ea on e.event_id = ea.event_id join users u on ea.user_id = u.user_id where e.event_id = ? ', req.params.event_id, function(error,result) {
+  var resultJSON = [];
+  db.dmlQry('select * from events where event_id = ? ', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
       res.writeHead(500, {'Content-Type': "application/json"});
@@ -57,7 +58,35 @@ this.getEventRecords = function(req, res, next) {
    else{
        
        if(result.length != 0)
-         res.end(JSON.stringify(result));
+         //res.end(JSON.stringify(result));
+         resultJSON.push(result);
+         
+      else {
+        //send error
+        res.writeHead(403, {'Content-Type': "application/json"});
+            res.end(JSON.stringify({response:'Invalid Event ID'}));
+      }  
+     
+      }  
+            
+  });
+  
+  
+  
+  
+  db.dmlQry('select u.* from events e join event_attendees ea on e.event_id = ea.event_id join users u on ea.user_id = u.user_id where e.event_id = ? ', req.params.event_id, function(error,result) {
+  if(error){
+      console.log("Error" + error);
+      res.writeHead(500, {'Content-Type': "application/json"});
+      res.end(JSON.stringify({response:error}));
+  }
+   else{
+       
+       if(result.length != 0) {
+         
+         resultJSON['users'] = result;
+         res.end(JSON.stringify(resultJSON));
+       }     
       else {
         //send error
         res.writeHead(403, {'Content-Type': "application/json"});
