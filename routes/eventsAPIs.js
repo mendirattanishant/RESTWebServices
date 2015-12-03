@@ -20,7 +20,7 @@ this.create_event = function(req, res, next) {
 
 
   console.log(event_details);
-  db.dmlQry('insert into events set ? ',event_details, function(error,result){
+  db.dmlQry('insert into events set ?',event_details, function(error,result){
     if(error){
         console.log("Error" + error);
         res.writeHead(500, {'Content-Type': "application/json"});
@@ -33,12 +33,19 @@ this.create_event = function(req, res, next) {
         res.end(JSON.stringify({event_id: event_id}));
     }          
   });
+  db.dmlQry('insert into event_attendees set ?',event_details, function(error,result){
+    if(error){
+        console.log("Error" + error);
+        res.writeHead(500, {'Content-Type': "application/json"});
+        res.end(JSON.stringify({response:error}));
+    }
+  });
 };
 
 this.getEventRecords = function(req, res, next) {
     console.log("#########################In Get Events#######################")
   //var event_id = req.params.event_id;
-  db.dmlQry('select * from events where event_id = ?', req.params.event_id, function(error,result) {
+  db.dmlQry('select * from events where event_id = ? join event_attendees', req.params.event_id, function(error,result) {
   if(error){
       console.log("Error" + error);
       res.writeHead(500, {'Content-Type': "application/json"});
@@ -51,7 +58,7 @@ this.getEventRecords = function(req, res, next) {
       else {
         //send error
         res.writeHead(403, {'Content-Type': "application/json"});
-            res.end(JSON.stringify({response:'Invalid User'}));
+            res.end(JSON.stringify({response:'Invalid Event ID'}));
       }  
      
       }  
