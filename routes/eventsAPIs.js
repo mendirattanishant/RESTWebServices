@@ -2,7 +2,7 @@ var db = require('./db');
 var moment = require('moment');
 this.create_event = function(req, res, next) {
           
-          
+              var event_id_new;
   console.log("In create Event");
   var event_details = req.body;  
   var user_id = req.body.user_id;
@@ -16,7 +16,7 @@ this.create_event = function(req, res, next) {
 //   event_details["event_id"] = event_id;
 //   console.log(event_id);
 
-    var evet_id_new;
+
   console.log(event_details);
   db.dmlQry('insert into events set ?',event_details, function(error,result){
     if(error){
@@ -40,7 +40,7 @@ this.create_event = function(req, res, next) {
         res.end(JSON.stringify({response:error}));
     }
     else{
-        var response = event_id;
+        var response = event_id_new;
         
    	    res.writeHead(200, {'Content-Type': "application/json"});
         res.end(JSON.stringify({event_id: event_id_new}));
