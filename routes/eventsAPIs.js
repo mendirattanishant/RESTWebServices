@@ -26,10 +26,7 @@ this.create_event = function(req, res, next) {
     }
     else {
         event_id_new = result.insertId;
-    }
-  });
-
-   var event_details_attendees = 
+           var event_details_attendees = 
     {
     "event_id":event_id_new,
     "user_id":user_id };
@@ -46,6 +43,10 @@ this.create_event = function(req, res, next) {
         res.end(JSON.stringify({event_id: event_id_new}));
     }
   });
+    }
+  });
+
+
 };
 
 this.getEventRecords = function(req, res, next) {
