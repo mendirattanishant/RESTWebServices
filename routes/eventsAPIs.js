@@ -39,7 +39,7 @@ this.create_event = function(req, res, next) {
     else{
         var response = event_id_new;
         
-   	    res.writeHead(200, {'Content-Type': "application/json"});
+   	    //res.send(200, {'Content-Type': "application/json"});
         res.end(JSON.stringify({event_id: event_id_new}));
     }
   });
