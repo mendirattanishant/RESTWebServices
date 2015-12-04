@@ -12,11 +12,11 @@ this.create_event = function(req, res, next) {
   var date = req.body.date;
   var start_time = req.body.start_time;
   var end_time = req.body.end_time;  
-  var event_id = event_name +  moment().unix();
-  event_details["event_id"] = event_id;
-  console.log(event_id);
+//   var event_id = event_name +  moment().unix();
+//   event_details["event_id"] = event_id;
+//   console.log(event_id);
 
-
+    var evet_id_new;
   console.log(event_details);
   db.dmlQry('insert into events set ?',event_details, function(error,result){
     if(error){
@@ -24,11 +24,14 @@ this.create_event = function(req, res, next) {
         res.writeHead(500, {'Content-Type': "application/json"});
         res.end(JSON.stringify({response:error}));
     }
+    else {
+        event_id_new = result.insertId;
+    }
   });
 
    var event_details_attendees = 
     {
-    "event_id":event_id,
+    "event_id":event_id_new,
     "user_id":user_id };
   db.dmlQry('insert into event_attendees set ?',event_details_attendees, function(error,result){
     if(error){
@@ -40,7 +43,7 @@ this.create_event = function(req, res, next) {
         var response = event_id;
         
    	    res.writeHead(200, {'Content-Type': "application/json"});
-        res.end(JSON.stringify({event_id: event_id}));
+        res.end(JSON.stringify({event_id: event_id_new}));
     }
   });
 };
