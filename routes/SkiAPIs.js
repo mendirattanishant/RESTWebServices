@@ -53,7 +53,7 @@ this.getSkiRecords = function(req, res, next) {
 
 
 
-   this.getSkiRecords = function(req, res, next) {
+   this.getSkiRecordsByEventId = function(req, res, next) {
      db.dmlQry('select * from ski_event where event_id = ?', req.params.event_id, function(error,result) {
       if(error){
           console.log("Error" + error);
