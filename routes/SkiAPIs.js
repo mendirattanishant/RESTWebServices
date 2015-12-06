@@ -51,6 +51,32 @@ this.getSkiRecords = function(req, res, next) {
      });
    };
 
+
+
+   this.getSkiRecords = function(req, res, next) {
+     db.dmlQry('select * from ski_event where event_id = ?', req.params.event_id, function(error,result) {
+      if(error){
+          console.log("Error" + error);
+          res.writeHead(500, {'Content-Type': "application/json"});
+          res.end(JSON.stringify({response:error}));
+      }
+       else{
+           
+           if(result.length != 0)
+             
+            res.end(JSON.stringify(result));  
+          
+          else{
+            //send error
+            res.writeHead(403, {'Content-Type': "application/json"});
+                res.end(JSON.stringify({response:'Invalid User'}));
+          }  
+         
+          }  
+                
+     });
+   };
+
 this.deleteSkiRecord = function(req, res, next) {
 
 
