@@ -28,7 +28,7 @@ this.createSkiRecord = function(req, res, next) {
 
 
 this.getSkiRecords = function(req, res, next) {
-     db.dmlQry('select * from ski_event where user_id = ?', req.body.user_id, function(error,result) {
+     db.dmlQry('select * from ski_event where user_id = ?', req.params.user_id, function(error,result) {
       if(error){
           console.log("Error" + error);
           res.writeHead(500, {'Content-Type': "application/json"});
