@@ -83,7 +83,8 @@ var pwd = req.body.password;
 
 this.attendEvent = function(req, res, next) {
 var event_attendees = {  event_id : req.body.event_id, 
- user_id : req.body.user_id }; 
+ user_id : req.body.user_id,
+ flag : req.body.flag }; 
 
 //console.log(user_id);
 db.dmlQry('insert into event_attendees SET ? ',event_attendees, function(error,result){
@@ -94,10 +95,30 @@ db.dmlQry('insert into event_attendees SET ? ',event_attendees, function(error,r
   }
   else{
       var replyJson = {user_id : req.body.user_id,
-              event_id : req.body.event_id};
+              event_id : req.body.event_id,
+              flag : req.body.flag};
       
       res.writeHead(200, {'Content-Type': "application/json"});
       res.end(JSON.stringify(replyJson));
+  }          
+});
+};
+
+
+this.goToEvent = function(req, res, next) {
+var event_id = req.body.event_id;
+var user_id = req.body.user_id; 
+
+//console.log(user_id);
+db.dmlQry('update event_attendees SET flag =? where user_id = ? and event_id = ?',["Yes",user_id,event_id], function(error,result){
+  if(error){
+      console.log("Error" + error);
+      res.writeHead(500, {'Content-Type': "application/json"});
+      res.end(JSON.stringify({response:error}));
+  }
+  else{
+      res.writeHead(200, {'Content-Type': "application/json"});
+      res.end(JSON.stringify(response: update success));
   }          
 });
 };
