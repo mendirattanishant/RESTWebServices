@@ -118,7 +118,7 @@ db.dmlQry('update event_attendees SET flag =? where user_id = ? and event_id = ?
   }
   else{
       res.writeHead(200, {'Content-Type': "application/json"});
-      res.end(JSON.stringify(response: update success));
+      res.end(JSON.stringify({response: success}));
   }          
 });
 };
