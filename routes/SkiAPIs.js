@@ -6,24 +6,41 @@ this.createSkiRecord = function(req, res, next) {
   
   var ski = req.body;  
   //var select = [req.body.ski_start_time, req.body.user_id, req.body.event_id]
-  var ski_id = req.body.user_id + req.body.event_id + req.body.ski_start_time +  moment().unix();
+  var ski_id = req.body.user_id + req.body.ski_start_time +  moment().unix();
+  var start_time = req.body.start_time;
   ski["ski_id"] = ski_id;
 
   console.log(ski);
-  db.dmlQry('insert into ski_event set ? ',ski, function(error,result){
+  db.dmlQry('select start_time from events where start_time >= ?',start_time, function(error,result){
     if(error){
         console.log("Error" + error);
         res.writeHead(500, {'Content-Type': "application/json"});
         res.end(JSON.stringify({response:error}));
     }
     else{
-       
-              //var replyJson = {user_id : result.email_id};
-              res.writeHead(200, {'Content-Type': "application/json"});
-              res.end(JSON.stringify({ski_id : ski_id}));
-                       
+              if (result.length!=0) {
+                ski["event_id"] = result[0].event_id;
+                db.dmlQry('insert into ski_event set ? ',ski, function(error,result){
+                if(error){
+                    console.log("Error" + error);
+                    res.writeHead(500, {'Content-Type': "application/json"});
+                    res.end(JSON.stringify({response:error}));
+                }
+                else{
+                   
+                          //var replyJson = {user_id : result.email_id};
+                          res.writeHead(200, {'Content-Type': "application/json"});
+                          res.end(JSON.stringify({ski_id : ski_id}));
+                                   
+                }          
+              });   
+              }   
+              else {
+                res.writeHead(200, {'Content-Type': "application/json"});
+                res.end(JSON.stringify({response : "No event is live"}));
+              }   
     }          
-  });
+  });  
 };
 
 
