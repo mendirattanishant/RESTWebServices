@@ -7,7 +7,7 @@ this.createSkiRecord = function(req, res, next) {
   var ski = req.body;  
   //var select = [req.body.ski_start_time, req.body.user_id, req.body.event_id]
   var ski_id = req.body.user_id + req.body.ski_start_time +  moment().unix();
-  var start_time = req.body.start_time;
+  var start_time = req.body.ski_start_time;
   ski["ski_id"] = ski_id;
 
   console.log(ski);
