@@ -151,7 +151,7 @@ db.dmlQry('delete from event_attendees where event_id = ? and user_id = ?', del_
 this.getAttendingEvents = function(req, res, next) {
 
 //console.log(user_id);
-db.dmlQry('select * from events, event_attendees where event_attendees.user_id = ? and event_attendees.event_id = events.event_id', req.params.user_id, function(error,result){
+db.dmlQry('select * from events, event_attendees where event_attendees.user_id = ? and event_attendees.event_id = events.event_id and event_attendees.flag= ?', [req.params.user_id,"Yes"], function(error,result){
   if(error){
       console.log("Error" + error);
       res.writeHead(500, {'Content-Type': "application/json"});
